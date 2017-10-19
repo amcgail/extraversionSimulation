@@ -1,0 +1,216 @@
+\documentclass[]{article}
+\usepackage{amssymb,latexsym,amsmath,xfrac}
+\usepackage{wrapfig}
+\usepackage[numbers]{natbib}
+\usepackage{verbatim} 
+\usepackage{multicol}
+\usepackage[toc,page]{appendix}
+\usepackage{caption}
+\usepackage{subcaption}
+
+\usepackage{float}
+\floatplacement{figure}{H}
+
+\newcommand{\qed}{\nobreak \ifvmode \relax \else
+	\ifdim\lastskip<1.5em \hskip-\lastskip
+	\hskip1.5em plus0em minus0.5em \fi \nobreak
+	\vrule height0.75em width0.5em depth0.25em\fi}
+
+\usepackage[margin=1.5in]{geometry}
+
+\title{Extraversion}
+\author{Alec McGail}
+\begin{document}
+	\maketitle
+	
+	\section{What is extraversion?}
+	I am obliged to first state the commonly accepted definition of extraversion, in order to reference any earlier work in in psychology. Extraversion is a member of the ``Big Five" personality traits, and is typically measured by asking questions such as ``whether [they] enjoy the company of others, attend parties	frequently, are talkative, outgoing, gregarious, and enthusiastic" \cite{Gosling2003}. This measure will parallel mine, insofar as they should vary together. I'll make no argument about the nature of causality in such internal phenomena.
+	
+	Extraversion is a rather unobservable concept, and must thus be dealt with via proxies. The definition I'll use here is that extroversion is \textit{the amount of social time a specific person would like to spend in a given period of time}. Certainly many individuals don't consciously deal with their extraversion, so defined, but still act based on it. There is no direct method to observe extraversion (except possibly the error-prone method of asking them).
+	
+	One easily measurable consequence of a person's extraversion is \textit{their tendency to increase or decrease the amount of time they spend with other people, given the amount of time they are currently spending socially}, as measured by specific actions, such as choosing to go to social events, seeking social activity, or choosing to begin or end a relationship. This is the outcome of extraversion I will be simulating in this paper. Extroversion might also be measured by the celerity in which individuals seek out friends when they arrive in a new city (where they have no prior relationships).
+	\footnote{This observable is mitigated by the preponderance these days of non-local means of socializing. This person's use of social media would greatly impact this measure, obfuscating any measure of extraversion.}
+	
+	\section{Measuring extraversion}
+	Observables such as these will have to step in place of my initial conception of extraversion in any concrete sociological study.
+	This is by the fundamentally unobservable nature of the original psychological trait extraversion.
+
+	One issue with actually measuring this concept in the wild is that all the observables of the amount of extraversion are confounded by many other causes. For example, individuals may interact socially only because they are coerced to do so, e.g. if they feel it is their duty. They may choose to begin or end a relationship because of multifarious reasons, not directly connected to their tendancy towards a specific level of extraversion. Another difficulty is that individuals typically have relationships which are long-term, and which are built upon an agreement of some sort, for example that they will meet every Wednesday at yoga class. In this situation, change will only be exacted over a time-period of months, as individuals slowly, and sometimes painfully, rearrange their social schedule. This process introduces many other factors in when they actually change their social activity.
+	
+	As a further headache to theoretical progress, social interactions \textit{do not} always come about because of decision. Sometimes the beginning or end of a relationship is incited by a random occurrence of chance. 
+	
+	It's also clear that individuals make themselves more or less available to the chance of gaining a relationship, relative to the extent of dissatisfaction they have with their current social status-quo. So a specific social relationship is likely to begin only if both individuals want a relationship.
+	
+	For any sense to be made when modeling such a phenomenon, we must make assumptions which are in many specific cases unfounded. For example, we'll likely need to assume that all individuals have some relatively constant amount of social interaction they desire. Even if one accepts this, we will also want to assume that it doesn't matter to whom this socializing is addressed.
+	
+	\section{Extraversion ``in the wild"}
+	Figure \ref{fig:male-alone-time-as-we-age} shows how much time men spend alone, taken from the American Time Use Survey, as a function of their age \footnote{https://flowingdata.com/2017/06/26/alone-time/}.
+	
+	\begin{figure}
+		\centering
+		\fbox{\includegraphics[width=1\linewidth]{"images/Male alone time as we age"}}
+		\caption{The time men spend alone as a function of their age (ATUS)}
+		\label{fig:male-alone-time-as-we-age}
+	\end{figure}
+
+	There is research indicating that extroverts\footnote{In the language of my definition this coincides with relatively more extroverted individuals} are happier \cite{Oerlemans2014}, that they have more friends, they are more central, and their friends are more likely to be strong (with strong closure) \cite{Staiano2012}. Extraverts also have more extroverted friends than introverts\footnote{In the language of my definition this coincides with relatively less extroverted individuals} do \cite{Feiler2014}.
+	
+	There is higher extraversion in European and American compared to Asian and African cultures. 
+	Cultures whose members (on average) score high on extraversion have democratic values, an emphasis on individualism and self-expression, higher subjective well-being, have higher rates of obesity, and lower rates of suicide. \cite{Terracciano2006}
+	It's obvious that the first sentence of this paragraph correlates with the rest of the paragraph, but it was still the most powerful cross-cultural effect reported.
+	
+	\section{Justifying assumptions to bring forward modeling as a useful tool}
+	I'd only like to use simulation if I feel it's representing some aspect of social life which actually exists. 
+	\subsection{Does extraversion exist?}
+	That is, do people have a preference on how much social time
+	\subsection{Do people act in a similar way based on similar discomfort?}
+	This brings to the fore many arguments of assumptions. 
+	For example, some individuals will repeatedly report dissatisfaction with how much they socialize, but will remain too shy to take action in any meaningful way.
+	
+	It's also often the case that restrictions in the amount of free time available to a person restricts their ability to correct their social situation. They simply don't have the time available.
+	
+	\section{Others modeling extraversion}
+	To my knowledge, all simulation studies of extraversion do not consider an intrinsic threshold for social interaction time. In one case it was simply modeled as a propensity to make friends \cite{Muthukrishna}.
+	
+	\section{Analytic description of the ``scheduling with extroversion" model}
+	We will assume that people are comfortable with a certain amount of recurring social activity. 
+	We'll also assume that the only social activity individuals engage in is that of a recurring kind.
+	Thus the amount of their time that two individuals spend together change only at discrete moments in time.
+	More formally, assume there are $N$ individuals, labeled $\{1,2,3,\dots N\} \equiv \mathbb{P}$.
+	At each time $t$, there is an allocation of time $\sigma: \mathbb{P} \times \mathbb{P} \times \mathbb{R^+} \to [0,1]$, denoted by $\sigma_t(i,j)$. $\sigma_t$ is symmetric for all $t$, such that for each minute $i$ spends with $j$, $j$ is also spending that minute with $i$. We also assume $\sigma_t(i,i) = 0$ for any $i\in\mathbb{P}$. We will denote by $\boldsymbol{\sigma}_t$ the matrix which corresponds to this function, such that $[\boldsymbol{\sigma}_t]_{i,j} = \sigma_t(i,j)$.
+	
+	Let $\sigma_t(i) = \sum_{j\in\mathbb{P}} \sigma_t(i, j)$ be the total amount of social interaction $i$ gets at time $t$.
+	Define $s(i,t)$ to be the stress of node $i$ at time $t$:
+	\[
+	s(i,t) \equiv \mu\left( \frac{\alpha_i - \sigma_t(i)}{\sigma_t(i)} \right) = \mu\left( \frac{\alpha_i}{\sigma_t(i)} - 1 \right)
+	\]
+	where $\mu(x)$ is some bounded weighting function, increasing for $x > 0$, with $\mu(0) = 0$. The argument of $\mu$ is the percent individual $i$ needs to change her time socializing to be satisfied. 
+	Typically we will take $\mu(x) = |\text{logit}(x) - 1/2| = |\frac{1}{1+e^{-x}} - 1/2|$.
+	Intuitively, $s(i,t)$ is a measure of how much more or less they'd like to change the amount of time they are spending socially, and corresponds to the inverse of the expected amount of time until they take some action to change their relationship network.
+	
+	We assume that the amount of time until a person takes some action to change their social network is memoriless\footnote{This property is deep and intrinsic to many social systems. It expresses only that the probability for change in any time period depends only on the stress $s(i,t)$ of the individual at that time, and does not depend on the value of this stress at any time in the past.}. Then $T(i, t)$, the amount of time until $i$ takes some action to change her social situation, has the distribution $\exp\left[ \frac{1}{s(i,t)} \right]$. By this definition $\sigma_t$ is piecewise constant with exponential jump times.
+	
+	At time $t=0$, the first change in decision will happen in time $T(t) \sim \min_i[T(i,t)] \sim \exp\left[ \sum_{i\in\mathbb{P}} s(i,t)^{-1} \right]$\footnote{This is a standard property of the exponential distribution}. An important descriptive function of this network for the forgoing analysis is related to the Bonacich centrality measure: $\textbf{B}(p) = \sum_{k=1}^{\infty} (p \boldsymbol{\sigma})^k = [\textbf{I} - p\boldsymbol{\sigma}]^{-1}$. Intuitively $\textbf{B}_{ij}(p)$ represents how likely $i$ is to run into $j$, modeled as a contagion (possibly of information) flowing through the network. 
+	
+	We will assume that at the time of decision the individual looks at her situation and tries to find a better social situation. 
+	She can cut or add to a single relationship\footnote{The fact that they can only make one change reflects the effort involved in changing the nature of an existing social relationship.}.
+	Adding a new tie must be consensual. This means that a person who doesn't want more social interaction is unlikely to acquire new relationships.
+	Breaking a tie has no such constraint, as either party can choose to stop a relationship.
+	
+	If the individual who is deciding is over-socialized ($\sigma_t(i) > \alpha_i$), they will seek to break off a relationship.
+	To choose the relationship, they will take into account their connectivity to the individual, i.e. $\textbf{B}(p)_{ij}$. In particular, we assume that the more connected a person $j$ is with the actor's social network, the less likely $i$ is to breaking $j$ out of their life, because it'd have more social consequences.
+	
+	\[
+	P(i\text{ break connection with j }) \sim 
+		I[\sigma_t(i,j) > 0] \left(
+			\frac{1}{\textbf{B}(p)_{ij}} + \epsilon_1
+		\right)
+	\]
+	This probability distribution will be normalized, such that 
+	
+	$$P(i\text{ breaks a connection with anyone}) = 1$$.
+	
+	If the individual is under-socialized ($\sigma_t(i) < \alpha_i$), they will seek to add a new recurring tie.
+	This tie is influenced largely by the structure of their social network, via $\textbf{B}(p)$, with some small chance of running into any person in the network, regardless of network structure.
+	Analytically, we say that
+	\[
+		P(i~\text{alters tie with}~j)
+		 \sim
+		( 
+			\epsilon_2 + 
+			s(j,t) I[ \sigma_t(j) < \alpha_j ] 
+		)
+		(
+			\epsilon_3 +
+			\textbf{B}(p)_{ij}
+		)
+	\]
+	normalizing such that $\sum P(i~\text{alters tie with}~j) = 1$. Note that there is no restriction that $i$ doesn't know $j$, so this decision may strengthen a relationship the focal actor already has.
+	
+	If $i$ alters their tie with $j$, we will set their tie to $U( [\alpha_i - s(i,t), \alpha_j - s(j,t)] )$, simulating a sort of compromise between what they both want. If $\alpha_i - s(i,t) < 0$ and $\alpha_j - s(j,t) < 0$ (there's only a small probability of this), then we set their tie equal to the average ties of them and their friends (\textbf{this is a strange condition. please fix!}). 
+	
+	\section{Simulation methodology}
+	\subsection{General comments}
+	\subsection{Extroversion}
+	The methodology for simulation is relatively straightforward.
+	First, initialize ${\alpha_i}$ and $\sigma_0$.
+	In each example below we initialize $\sigma_0$, the relationship network, to $\textbf{0}$, so the individuals do not know eachother, or anyone else for that matter.
+	We then compute the first time of any relationship change, drawing each node $i$ the time of next change from $\exp\left[ \frac{1}{s(i,t)} \right]$ and finding the minimum. 
+	The individual $i*$ which corresponds to this minimum will now make a change to their network.
+	Then, following the analytic description outlined above, alter the ties between $i*$ and their chosen $j$. Then wash, rinse and repeat.\footnote{
+		Note that when calculating $\textbf{B}(p)$ we always use $p = \frac{1}{2\lambda_1}$, where $\lambda_1$ is the largest eigenvector of $\boldsymbol{\sigma}$. This gives us some effects social contagion, while ensuring that $\textbf{B}(p)$ actually converges (we need $p < \frac{1}{\lambda_1}$).
+	}
+	\footnote{
+	Because the process of changing ties is memoryless, it's not problematic to compute these first changes over and over again for the updated networks.
+	}
+	
+	Given a population with extroversion ${\alpha_i}$, there exists a configuration that minimizes $\sum_i s(i,t)$, and some, maybe different configuration $\sigma$ which minimizes the effective stress of the network, $[\sum_{i\in\mathbb{P}} s(i,t)^{-1}]^{-1}$. The minimum discomfort, analytically, is not an easy thing to come up with, and depends on the chosen $\mu$. Based on simulation there's reason to believe that there are local minima in this system which trap the network in an uncomfortable state.
+	
+
+	\subsection{Likeability}
+	One obvious criticism is that in reality individuals are heterogeneous, and care who they interact with.
+	To simulate this phenomenon, we will introduce $\boldsymbol{L}$, a matrix which defines how much each person enjoys specific others.
+	That is, $\sigma_t(i,j) \neq \sigma_t(j,i)$.
+	We would still assume that $\sigma_t(i,j) / \sigma_t(j,i)$ is constant across time if the terms are positive.
+	Specifically, if $i$ and $j$ spend time $\tau$ together, $i$ will get $\sigma_t(i,j) = \boldsymbol{L}_{i,j} \tau$ social satisfaction, and $j$ will get $\sigma_t(j,i) = \boldsymbol{L}_{i,j} \tau$ social satisfaction. \footnote{By this assumption, we have the requirement $\sigma_t(i,j)\boldsymbol{L}_{j,i} = \sigma_t(j,i)\boldsymbol{L}_{i,j}$.}
+	
+	One easy analytic consequence of this model is that long term best friends (those who have had no other friends, and have interacted without changing structure for a long time), must like eachother's company the same amount, and furthermore have the same extroversion.
+	
+	\subsubsection{More random noise}
+	Another obvious generalization is to allow random disturbances to modify network structure, outside of the relationships among individuals.
+	
+	\section{Simulation results}
+	
+	\subsection{Summary}
+	
+	From modeling the above system we saw, somewhat surprisingly, no extraversion bias, as observed in \cite{Feiler2014}.
+	
+	\subsection{Balance}
+	
+	\begin{figure}
+		\centering
+		\fbox{\includegraphics[width=0.8\linewidth]{"images/screenshot_194416"}}
+		\caption{This figure represents a network of individuals with uniformly distributed extraversion ($\alpha_1 = 0$, $\alpha_1 = \frac{1}{N}$, $~\dots~$, $ \alpha_{N-1} = \frac{N-1}{N}$, $ \alpha_N = 1$). This figure is a snapshot $\sigma_{50}$ at $t=50$. The size of nodes represents the extraversion of the individual, and the tie width the extent of their social obligation.}
+		\label{fig:screenshot194416}
+	\end{figure}
+
+	\subsection{Dynamics of degree distribution}
+		Figures \ref{fig:degreedistributionuniformlydistributedalpha}, \ref{fig:frequencydistafternewmembers}, and \ref{fig:degreedistdiscrete1} show how the degree distribution of a network develops over time under this model. In figure \ref{fig:degreedistributionuniformlydistributedalpha} we show long-term dynamics of a system of 100 individuals with $\alpha = \{0, 0.1, 0.2, ..., 9.9\}$. In figure \ref{fig:frequencydistafternewmembers} we add 50 new members to a relatively stable cohort to see what happens.
+	We can also simulate a natural disaster, an army draft, the graduation of a subset of a school's population, a disease\footnote{It's likely that a disease would spread across social networks, having different implications in these models than random selection, as in a disaster.}, etc. by removing some number of individuals randomly from the population. We can then assess the effect on socializing (see figure \ref{fig:degreedistdiscrete1}).
+	
+	To get some idea of how the equilibrium network's efficiency changes with the distribution $\{\alpha_i\}$, I've compared $s\in[0, 10]$, and $\alpha_i \in [10-s, 10]$, uniformly. I ran each spread 10 times until $t=50$ to get some notion of the uncertainty associated with each $\{\alpha_i\}$ distribution. The results are shown in figure \ref{fig:the-total-unhappiness-versus-spread-of-alpha}.
+	
+	\begin{figure}
+		\centering
+		\begin{subfigure}{1\textwidth}
+			\fbox{\includegraphics[width=1\linewidth]{"images/degreeDistributionUniformlyDistributedAlpha"}}
+			\caption{Degree distribution evolving over time in a network of 100 individuals whose extraversion is spread evenly between $\alpha_1 = 0$ and $\alpha_{100} = 1$}.
+			\label{fig:degreedistributionuniformlydistributedalpha}
+		\end{subfigure}
+		\begin{subfigure}{1\textwidth}
+			\fbox{\includegraphics[width=1\linewidth]{"images/frequencyDistAfterNewMembers"}}
+			\caption{Shown here is the effect of adding 50 new members to a relatively stable social collective of 150.}
+			\label{fig:frequencydistafternewmembers}
+		\end{subfigure}
+		\caption{}
+	\end{figure}
+	
+	\begin{figure}
+		\centering
+		\fbox{\includegraphics[width=1\linewidth]{"images/degreeDistDiscrete1-5-10-120-kill50"}}
+		\caption{The effect of a disaster on a relatively stable cohort. 50 individuals were killed randomly out of 120 total at $t=100$. Note that here $\alpha = {1,\dots,1,5,\dots,5,10,\dots,10}$. The y-axis is normalized to a sum of 100. The disaster happens at $t=100$.}
+		\label{fig:degreedistdiscrete1}
+	\end{figure}
+	
+	\begin{figure}
+		\centering
+		\fbox{\includegraphics[width=1\linewidth]{"images/the total unhappiness versus spread of alpha"}}
+		\caption{The sum of unhappiness ($\sum_j s(i, 50)$) over the population at a given time $t=50$ for different values of spread, $s$. In each simulation there are 50 individuals with $\alpha$ uniformly distributed over $[10-s, 10]$. The error bars in the figure represent standard deviations over ten experiments at that spread.}
+		\label{fig:the-total-unhappiness-versus-spread-of-alpha}
+	\end{figure}
+
+	
+	\bibliographystyle{plainnat}
+	\bibliography{/home/alec/papersInProgress/library}
+	
+\end{document}
