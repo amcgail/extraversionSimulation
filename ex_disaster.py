@@ -9,9 +9,9 @@ from exSim import simulation
 import numpy as np
 
 s = simulation( np.arange( 1, 10, 0.1 ) )
-s.runSimulation( time=5 )
+s.runSimulation( time=25 )
 s.randomDisaster( 25 )
-s.runSimulation( time=5 )
+s.runSimulation( time=25 )
 
 s.exportGraphCSV( "out" )
 s.exportDegreeDist( "out" )
