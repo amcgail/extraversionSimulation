@@ -137,6 +137,8 @@ class simulation():
     def initializeSnapshotMetrics(self):
         self.sigmaLog = []
         self.alphaLog = {}
+        self.LLog = {}        
+        
         self.degreeDistLog = []
         
     def snapShotMetrics(self):
@@ -147,6 +149,7 @@ class simulation():
         
         self.sigmaLog.append( (self.t, np.copy(self.sigma)) )
         self.alphaLog[self.t] = np.copy(self.alpha)
+        self.LLog[self.t] = np.copy(self.L)
     
     def oneRound(self):
         mint, mini = self.Tmin()       
@@ -156,25 +159,34 @@ class simulation():
         self.takeOpportunity(mini)
         self.snapShotMetrics()
         
-    def runSimulation(self, nsteps=None, ntime=None):
-        if nsteps is None and ntime is None:
+    def runSimulation(self, nsteps=None, time=None):
+        if nsteps is None and time is None:
             nsteps = 100
         
         from time import sleep
+        
+        if time is not None:
+            endTime = self.t + time
+        
+        printStep = 50
+        
         i = 0
         while 1:
             i += 1
-            if i % 10 == 0:
+            if i % printStep == 0:
                 if nsteps is not None:
                     print "Step %s / %s" % (i, nsteps)
                     print " -- t=%.2f" % (self.t)
-                if ntime is not None:
+                if time is not None:
                     print "Step %s" % (i)
-                    print " -- t=%.2f / %.2f" % (self.t, ntime)
+                    print " -- t=%.2f / %.2f" % (self.t, endTime)
+                    
+                if printStep*10 < i:
+                    printStep *= 1.5
             
             self.oneRound()
             
-            if ntime is not None and self.t > ntime:
+            if time is not None and self.t > endTime:
                 break
             if nsteps is not None and i > nsteps:
                 break
@@ -189,13 +201,20 @@ class simulation():
         self.N += 1
         
         # return index of new person
+        print "Person with extroversion %0.2f added." % alph
         return self.N - 1
     
     def killPerson(self, i):
         self.sigma = np.delete( self.sigma, i, 0 )
         self.sigma = np.delete( self.sigma, i, 1 )
+        
+        self.L = np.delete( self.L, i, 0 )
+        self.L = np.delete( self.L, i, 1 )
+        
         self.alpha = np.delete( self.alpha, i )
         self.N -= 1
+        
+        print "Person %d killed" % i
     
     def exportGraphCSV(self, fn):
         from csv import writer
@@ -204,7 +223,6 @@ class simulation():
         
         with open(nodeFn, 'wb') as csvf:
             cw = writer(csvf)
-            
             
         with open(edgeFn, 'wb') as csvf:
             cw = writer(csvf)
@@ -229,6 +247,9 @@ class simulation():
                         else:
                             lastT = t
                             lastS = sigma[ni,nj]
+            
+        print "Edges exported to %s" % edgeFn
+        print "Nodes exported to %s" % nodeFn
                             
     def randomDisaster(self, npeople):
         assert npeople <= self.N
@@ -238,6 +259,7 @@ class simulation():
             self.killPerson( choice( range( self.N ) ) )
 
     def exportDegrees(self, fn):    
+        fn = "%s.%s" % (fn, "deg.all.csv" )
         rows = []
         rows.append(["t", "degree","alpha","personi"])
         for t, sigma in self.sigmaLog:
@@ -248,8 +270,11 @@ class simulation():
                 rows.append([ t, deg, self.alphaLog[t][i], i ])
         
         renderCSV( rows, fn )
+        print "All degrees for all users exported to %s" % fn
     
     def exportDegreeDist(self, fn):
+        fn = "%s.%s" % (fn, "deg.csv" )        
+        
         rows = []
         rows.append(["t", "degree","freq"])
         for t, dist in self.degreeDistLog:
@@ -257,20 +282,25 @@ class simulation():
                 rows.append([t,degree,freq])
         
         renderCSV( rows, fn )
+        print "Degree distribution exported to %s" % fn
     
     def exportUnhappinessEvolution(self, fn):
+        fn = "%s.%s" % (fn, ".unhap.csv" )
         rows = []
         rows.append(["t", "avgUnhap", "minUnhap", "maxUnhap", "stdUnhap"])
         for t, sigma in self.sigmaLog:
             N,_ = np.shape(sigma)
-            unhap = [ self.mu( 1 - self.alphaLog[t][i] / ( np.dot( sigma[i], self.L[i] )+1e-10) ) for i in range(N) ]
+            unhap = [ self.mu( 1 - self.alphaLog[t][i] / ( np.dot( sigma[i], self.LLog[t][i] )+1e-10) ) for i in range(N) ]
             rows.append([
                 t, np.mean(unhap), np.min(unhap), np.max(unhap), np.std(unhap)
             ])
         
         renderCSV( rows, fn )
+        print "Unhappiness exported to %s" % fn
     
     def exportAlphaSimilarity(self, fn):
+        fn = "%s.%s" % (fn, ".alpha.csv" )
+        
         rows = []
         rows.append(["t", "personi", "alpha", "friendWeightedAvgAlpha", "friendAvgAlpha", "friendStdAlpha"])
         # this weights each person by how much time they are spent with... whatever
@@ -290,9 +320,10 @@ class simulation():
                     rows.append( [
                         t, i,
                         self.alphaLog[t][i], 
-                        np.average( self.alpha, weights = sigma[i] ),
+                        np.average( self.alpha, weights = dot( sigma[i], self.LLog[t][i] ) ),
                         np.average( friendAlphas ),
                         np.std( friendAlphas )
                     ] )
+        print "Alpha similarity exported to %s" % fn
                 
         renderCSV( rows, fn )
