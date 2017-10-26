@@ -37,14 +37,14 @@ for i in range(50):
     sAnti = simulation(alpha, L=Lanti)
     sHomo = simulation(alpha, L=Lhomo)
     
-    sHomo.runSimulation(ntime=500)
+    sHomo.runSimulation(time=50)
 
-    sHomo.exportAlphaSimilarity("%s.homo"%i)
-    sHomo.exportDegreeDist("%s.homo"%i)
-    sHomo.exportUnhappinessEvolution("antiHomophily/%s.homo"%i)
+    sHomo.exportAlphaSimilarity("data/antiHomophily/%s.homo"%i)
+    sHomo.exportDegreeDist("data/antiHomophily/%s.homo"%i)
+    sHomo.exportUnhappinessEvolution("data/antiHomophily/%s.homo"%i)
 
-    sAnti.runSimulation(ntime=500)
+    sAnti.runSimulation(time=50)
     
-    sAnti.exportAlphaSimilarity("%s.anti"%i)
-    sAnti.exportDegreeDist("%s.anti"%i)
-    sAnti.exportUnhappinessEvolution("%s.anti"%i)
+    sAnti.exportAlphaSimilarity("data/antiHomophily/%s.anti"%i)
+    sAnti.exportDegreeDist("data/antiHomophily/%s.anti"%i)
+    sAnti.exportUnhappinessEvolution("data/antiHomophily/%s.anti"%i)

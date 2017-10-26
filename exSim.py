@@ -285,7 +285,7 @@ class simulation():
         print "Degree distribution exported to %s" % fn
     
     def exportUnhappinessEvolution(self, fn):
-        fn = "%s.%s" % (fn, ".unhap.csv" )
+        fn = "%s.%s" % (fn, "unhap.csv" )
         rows = []
         rows.append(["t", "avgUnhap", "minUnhap", "maxUnhap", "stdUnhap"])
         for t, sigma in self.sigmaLog:
@@ -299,7 +299,7 @@ class simulation():
         print "Unhappiness exported to %s" % fn
     
     def exportAlphaSimilarity(self, fn):
-        fn = "%s.%s" % (fn, ".alpha.csv" )
+        fn = "%s.%s" % (fn, "alpha.csv" )
         
         rows = []
         rows.append(["t", "personi", "alpha", "friendWeightedAvgAlpha", "friendAvgAlpha", "friendStdAlpha"])
@@ -320,7 +320,7 @@ class simulation():
                     rows.append( [
                         t, i,
                         self.alphaLog[t][i], 
-                        np.average( self.alpha, weights = dot( sigma[i], self.LLog[t][i] ) ),
+                        np.average( self.alpha, weights = np.multiply( sigma[i], self.LLog[t][i] ) ),
                         np.average( friendAlphas ),
                         np.std( friendAlphas )
                     ] )
