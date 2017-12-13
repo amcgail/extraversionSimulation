@@ -12,4 +12,4 @@ The "exSim.py" file must be in the same directory as the Python file you are run
 
 The documentation folder contains some notes I made about creating the simulation, and what is actually happening.
 
-Let's test merge conflicts...
+Conflict with me!
