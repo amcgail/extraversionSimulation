@@ -1,0 +1,137 @@
+\documentclass[]{article}
+\usepackage{amssymb,latexsym,amsmath,xfrac}
+\usepackage{wrapfig}
+\usepackage[numbers]{natbib}
+\usepackage{verbatim} 
+\usepackage{multicol}
+\usepackage[toc,page]{appendix}
+\usepackage{caption}
+\usepackage{subcaption}
+
+\usepackage{float}
+\floatplacement{figure}{H}
+
+\newcommand{\qed}{\nobreak \ifvmode \relax \else
+	\ifdim\lastskip<1.5em \hskip-\lastskip
+	\hskip1.5em plus0em minus0.5em \fi \nobreak
+	\vrule height0.75em width0.5em depth0.25em\fi}
+
+\usepackage[margin=1.5in]{geometry}
+
+\title{A case for social simulation in sociology}
+\author{Alec McGail}
+\begin{document}
+	\maketitle
+	
+	\section{What is a social simulation?}
+	To explain what a social simulation is, I will describe how a researcher builds a social simulation.
+	
+	First the researcher defines a ``pure theory" of human interaction. This is a theory of causality based on specific, measurable characteristics of the people involved, informed by those things we do know about people. 
+	This theory typically involves what Weber calls ideal types, and is an idealized but somewhat believable theory of how humans interact, and in some cases\footnote{See the EOS (Emergence of Organized Society) project\cite{Doran1994}} what is going on in their heads.
+	A theory must at least answer the following questions:
+	
+	\begin{itemize}
+		\item How do individuals relate to one another? What real properties of individuals are relevant to these relationships? How do these relationships and properties change over time? 
+		\item What measurables exist of these relations, or equivalently of their effects? What is the connection between these measurables and rest of the theory?
+	\end{itemize}
+		
+	A common assumption in simulation sciences is that the individuals proceed deterministically, and in this case the theory can be exactly modeled forward in time. 
+	That is, given the observables, and thus the state of the system at a given time, a researcher can construct the future state of the system and what the observables will be then. 
+	Under this assumption the individuals act and react in an entirely predictable way.
+	
+	The researcher can also assume that some parts of the theory are probabilistic (the same as stochastic, but stochastic sounds better), and can not be predicted exactly given the parameters of the theory. 
+	In this case, the researcher specifies the nature of the unpredictable aspect of the theory, typically in terms of probability distributions.
+	Stochastic theories can be specified in as exact a form as deterministic theories, and are often a very natural assumption.
+	This takes into account that these theories cannot exactly determine the future, even given very accurate measurements of a social system.
+	For example, if daily weather is a strong determiner of the outcomes of some social system, it would be very reasonable to take account of its inherent unpredictability with probability theory.
+	
+	\section{What do we do with it?}
+	
+	The first thing a researcher does with a simulation is to run it. 
+	She specifies some initial state of the individuals and updates their states through time according to the causal theory the researcher has specified.
+	The major difference the researcher will see in a stochastic vs. a deterministic theory is that each time she runs the stochastic simulation she will see a different evolution of the system through time.
+	Because of this, the researcher must run the simulation many times, to get a good idea of the various potential behaviors of the system under the same initial conditions, given the random parts of the theory occur differently.
+	The evolution of the states of these individuals through time is called the output of the simulation.
+	
+	Emergent properties are uniformities in the output of the simulation in some range of initial conditions. 
+	In the case of a stochastic theory these uniformities must be verified in a large sample of the outcomes for each initial condition.
+	Emergent properties in stochastic theories can take the form of a propensity for a certain social outcome.
+	A researcher can directly test her theory for emergent properties through repeated simulation.
+	If the researcher creates multiple different theories, she can also examine the differences in their emergent properties. 
+	
+	\section{Causal explanation}
+	
+	Provided the theory was adequately specified, the researcher can also relate the output of the simulation to the real-world measurables she has identified, to which they -- in theory -- correspond.
+	
+	For a convincing causal explanation of a real social outcome, the researcher must do the following:
+	
+	\begin{itemize}
+		\item Describe clearly the relationship between real world measurements and parameters of the model(s).
+		\item Determine the model(s) and initial parameters for which the outcome of interest does or does not present itself. The outcome may also be a continuous variable, in which case its variable nature with respect to the model and parameters must also be identified.
+		\item Verify the emergent properties of the model do in fact present themselves in the real world.
+		\item Justify that the causal theory identified in the model is reasonable. This is a crucial, micro-level, justification for the model.
+		\item Rule out other similar theories, showing that they cannot adequately explain the observations.
+	\end{itemize}
+
+	Most of these steps can be replaced by a single step (and this step trumps them all together), provided it's possible:
+	\begin{itemize}
+		\item Successfully and consistently predict an outcome of interest using the social simulation.
+	\end{itemize}
+
+	Now... bear with me... assume that the researcher has done this, taking leaps beyond anything that exists now, and has stated a successful theory. This theory adequately explains the facts, and is shown to be predictive.
+	In this case, a social simulation has the potential to relate to sociology in the same way that experimentation relates to the physical sciences, allowing the researcher to make theoretical interventions to social systems and observe their consequences.
+	
+	If sociologists would like to make causal arguments at any level, a simulation described as such would reveal the nature of their theory in the same way long-winded logical discourse would.
+	It has the peculiar advantage of being able to handle causal systems which are much too complex to be reasoned about, and make the same kind of discoveries.
+	
+	\section{Chaos}
+	In the natural sciences it is well accepted that even completely deterministic systems can exhibit completely unpredictable behavior.
+	What they mean by this is that even though the causal process proceeds deterministically in the real world, a very small error in a measurement of the state after some time results in completely different outcomes of the system.
+	For example, Edward Lorenz showed in 1963 \cite{Lorenz1963} that very small differences in the initial state of an atmosphere (i.e. the weather on a specific day) very quickly leads to quite different predictions by his theory.
+	In 1969 he showed that even with an unreasonable number of sensors (one per every cubic meter of atmosphere), and an unreasonable accuracy in such atmospheric measurements, an initial observation could only be successfully forcasted forward three weeks, thus proving that the weather channel probably won't move past the 7-day forcast any time soon.
+	
+	If similar, so called chaotic, properties are present in social systems, social simulation is a quite natural method for discovering them, in the same way Lorenz did.
+	Furthermore, it is reasonable that this direction could be fruitful.
+	If the behavior of the atmosphere is complex and unpredictable, one can certainly assume that certain properties of human behavior are as well.
+	Social simulation may well be able to ask and answer the question ``In what circumstances is the social phenomena X fundamentally unpredictable?"
+	
+	\section{Self-reference}
+	The study of human systems is unique relative to any other physical system.
+	In particular, any theory of human behavior is understood by humans, the subject of the theory.
+	One can imagine that if a social theory is very successful, even predictive, it could be used on a large scale to help individuals (at least we hope).
+	But the individuals it affects, and/or the individuals they interact with, will understand the theory of their own activity and its consequences on their lives, and are libel to react to this understanding itself.
+	This property of social theories implies that any complete theory of human behavior (I don't necessarily claim one exists) must take into account the existence of the theory itself, and individuals' relationships with it.
+	
+	\section{Why do we do it?}
+	If we're going to work really hard at it, there must be a point to
+	simulating social systems.
+	
+	\subsection{Gathering knowledge}
+	The goal of sociology is to learn more about societies.
+	Some number of things are already known about societies (at specific
+	points in time), usually due to an incredible effort of an observer.
+	In fact all real sociological knowledge is gained through costly,
+	complicated, at times imperfect, observation.
+	Thus we are inherently limited to a small set of them, which are
+	outdated (and historical) as soon as they're created.
+	
+	The first step to seeing a social phenomenon is looking for it.
+	This either takes the direct will of the researcher, or of the
+	anthropologist, the ethnographic writer, or the novelist, etc.
+	One great use of simulation is in deciding what to look for.
+	If a model is reasonable, and fits observations, one can certainly
+	suspect phenomena the simulation predicts exist, before they've been
+	observed.
+	
+	\subsection{Prediction}
+	Any real theory attempts this.
+	Theory is the attempt to assign to a social system some causal
+	explanation which is correct.
+	The goal is then also to enable the practitioner, armed with the
+	theory, to make predictions about social systems, for instance to
+	improve the situation of the people involved.
+	Theory, in this sense, is what separates sociologists from historians.
+	
+	\bibliographystyle{plainnat}
+	\bibliography{/home/alec/papersInProgress/library}
+\end{document}

@@ -32,19 +32,12 @@ for i in range(N):
 # AND SIMULATE
 
 for i in range(50):
-    print "Running simulation %s/50" % i
+    print("Running simulation %s/50" % i)
 
     sAnti = simulation(alpha, L=Lanti)
     sHomo = simulation(alpha, L=Lhomo)
     
     sHomo.runSimulation(time=50)
-
-    sHomo.exportAlphaSimilarity("data/antiHomophily/%s.homo"%i)
-    sHomo.exportDegreeDist("data/antiHomophily/%s.homo"%i)
-    sHomo.exportUnhappinessEvolution("data/antiHomophily/%s.homo"%i)
-
+    sHomo.exportEverything("%s.homo"%i)
     sAnti.runSimulation(time=50)
-    
-    sAnti.exportAlphaSimilarity("data/antiHomophily/%s.anti"%i)
-    sAnti.exportDegreeDist("data/antiHomophily/%s.anti"%i)
-    sAnti.exportUnhappinessEvolution("data/antiHomophily/%s.anti"%i)
+    sAnti.exportEverything("%s.anti"%i)

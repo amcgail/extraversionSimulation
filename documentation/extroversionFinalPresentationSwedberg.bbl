@@ -1,0 +1,19 @@
+\begin{thebibliography}{2}
+\providecommand{\natexlab}[1]{#1}
+\providecommand{\url}[1]{\texttt{#1}}
+\expandafter\ifx\csname urlstyle\endcsname\relax
+  \providecommand{\doi}[1]{doi: #1}\else
+  \providecommand{\doi}{doi: \begingroup \urlstyle{rm}\Url}\fi
+
+\bibitem[Doran(1995)]{Doran1994}
+Jim Doran.
+\newblock {Modelling early human society}.
+\newblock 1995.
+
+\bibitem[Lorenz(1963)]{Lorenz1963}
+Edward~N. Lorenz.
+\newblock {The Predictability of Hydrodynamic Flow}.
+\newblock \emph{Transactions of the New York Academy of Sciences}, 25\penalty0
+  (4):\penalty0 409--432, 1963.
+
+\end{thebibliography}

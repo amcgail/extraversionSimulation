@@ -1,0 +1,50 @@
+This is BibTeX, Version 0.99d (TeX Live 2015/Debian)
+Capacity: max_strings=35307, hash_size=35307, hash_prime=30011
+The top-level auxiliary file: extroversion.aux
+The style file: plainnat.bst
+Database file #1: /home/alec/papersInProgress/library.bib
+Warning--empty school in Feiler2014
+Warning--empty note in Muthukrishna
+Warning--empty journal in Staiano2012
+You've used 10 entries,
+            2773 wiz_defined-function locations,
+            664 strings with 6447 characters,
+and the built_in function-call counts, 4346 in all, are:
+= -- 406
+> -- 204
+< -- 11
++ -- 70
+- -- 60
+* -- 324
+:= -- 665
+add.period$ -- 33
+call.type$ -- 10
+change.case$ -- 48
+chr.to.int$ -- 10
+cite$ -- 23
+duplicate$ -- 215
+empty$ -- 369
+format.name$ -- 80
+if$ -- 917
+int.to.chr$ -- 1
+int.to.str$ -- 1
+missing$ -- 9
+newline$ -- 59
+num.names$ -- 40
+pop$ -- 97
+preamble$ -- 1
+purify$ -- 40
+quote$ -- 0
+skip$ -- 166
+stack$ -- 0
+substring$ -- 170
+swap$ -- 25
+text.length$ -- 3
+text.prefix$ -- 0
+top$ -- 0
+type$ -- 105
+warning$ -- 3
+while$ -- 44
+width$ -- 0
+write$ -- 137
+(There were 3 warnings)
